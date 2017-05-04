@@ -10,6 +10,12 @@ let s:type_int = type(0)
 let s:type_float = type(0.0)
 let s:type_char = type('')
 
+function! s:error(msg) abort "{{{
+  echohl ErrorMsg
+  echomsg '[fakearray] Error:' a:msg
+  echohl None
+endfunction "}}}
+
 function! fakearray#val(first, second) abort "{{{
   if type(a:first) == s:type_float || type(a:second) == s:type_float
     return fake#float(a:first, a:second)
