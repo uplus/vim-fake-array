@@ -8,7 +8,7 @@ let g:fakearray#separator = get(g:, 'fakearray#separator', ', ')
 
 let s:type_int = type(0)
 let s:type_float = type(0.0)
-let s:type_char = type('')
+let s:type_string = type('')
 
 function! s:error(msg) abort "{{{
   echohl ErrorMsg
@@ -19,16 +19,25 @@ endfunction "}}}
 function! fakearray#val(first, second) abort "{{{
   if type(a:first) == s:type_float || type(a:second) == s:type_float
     return fake#float(a:first, a:second)
-  elseif type(a:second) == s:type_char && type(a:first) == s:type_int
-    return "'" . fake#chars(fake#int(1, a:first), a:second) . "'"
-  else
-    return fake#int(a:first, a:second)
+  elseif type(a:first) == s:type_int
+    if type(a:second) == s:type_int
+      return fake#int(a:first, a:second)
+    elseif type(a:second) == s:type_string
+      return "'" . fake#chars(fake#int(1, a:first), a:second) . "'"
+    endif
   endif
+
+  call s:error(printf('fakearray#val: Invalid arguments: %s, %s', a:first, a:second))
+  throw 'fakearray: Invalid arguments'
 endfunction "}}}
 
 function! fakearray#gen(first, second, num) abort "{{{
-  return join(map(range(a:num), 'fakearray#val(a:first, a:second)'),
-    \ get(b:, 'fakearray_separator', g:fakearray#separator))
+  try
+    return join(map(range(a:num), 'fakearray#val(a:first, a:second)'),
+      \ get(b:, 'fakearray_separator', g:fakearray#separator))
+  catch /fakearray:/
+    return ''
+  endtry
 endfunction "}}}
 
 function! fakearray#prompt() abort "{{{
