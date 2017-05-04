@@ -32,13 +32,22 @@ function! fakearray#gen(first, second, num) abort "{{{
 endfunction "}}}
 
 function! fakearray#prompt() abort "{{{
-  let args = map(split(input(g:fakearray#prompt_message)), 'eval(v:val)')
+  try
+    let args = map(split(input(g:fakearray#prompt_message), ' '), 'eval(v:val)')
+  catch /E121:/
+    call s:error('Invalid input: '. v:exception)
+    return ''
+  endtry
+
   let len = len(args)
   if len == 1
     return fakearray#gen(g:fakearray#prompt_start, g:fakearray#prompt_last, args[0])
+  elseif len == 2
+    call s:error('Enough input: Need 1 or 3')
   elseif len == 3
     return fakearray#gen(args[0], args[1], args[2])
   endif
+  return ''
 endfunction "}}}
 
 let &cpo = s:save_cpo
