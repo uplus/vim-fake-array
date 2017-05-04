@@ -1,0 +1,112 @@
+*fakearray.txt*	Easy to input dummy array.		*fakearray*
+
+Version: 1.0.0
+Author : uplus <uplus.e10 at gmail.com>
+License: MIT License
+
+==============================================================================
+CONTENTS						*fakearray-contents*
+
+INTRODUCTION			|fakearray-introduction|
+FUNCTIONS			|fakearray-functions|
+MAPPINGS			|fakearray-mappings|
+VARIABLES			|fakearray-variables|
+CHANGELOG			|fakearray-changelog|
+
+
+==============================================================================
+INTRODUCTION						*fakearray-introduction*
+
+vim-fakearray is a Vim plugin to input dummy array.
+>
+	:echo fakearray#gen(0, 10, 5)
+	4, 0, 6, 10, 7
+<
+
+Requirements:
+- vim-fake https://github.com/tkhren/vim-fake
+
+Latest version:
+https://github.com/uplus/vim-fakearray
+
+
+==============================================================================
+FUNCTIONS						*fakearray-functions*
+
+fakearray#val({first}, {second})			*fakearray#val*
+	`fakearray#val(first, second)` generate a random data.
+	It call |fake#int|, |fake#float| or |fake#chars| internally.
+	If `{first}` or `{second}` is `float`, call |fake#float|.
+	If `{second}` is `char`, call |fake#chars|.
+	Otherwise, call |fake#int|.
+
+
+fakearray#gen({first}, {second}, {num})			*fakearray#gen*
+	Call |fakearray#val| `{num}` times and join its result.
+	Separator is |g:fakearray#separator| or |b:fakearray_separator|.
+>
+	:echo fakearray#gen(0, 10, 3)
+	5, 9, 6
+
+	:echo fakearray#gen(0.1, 1.0, 4)
+	0.353839, 0.33994, 0.190778, 0.734527
+
+	:echo fakearray#gen(3, '\w', 5)
+	'im', 'pQj', '3uM', 'YK', 'EH3'
+<
+
+
+fakearray#prompt()					*fakearray#prompt*
+	Interactive |fakearray#gen|.
+>
+	:echo fakearray#prompt()
+	Fake Array> 0 10 3
+	0, 4, 2
+<
+	Allow only one number.
+	Range of the return numbers is between |g:fakearray#prompt_start| and
+	|g:fakearray#prompt_last|.
+>
+	:echo fakearray#prompt()
+	Fake Array> 5
+	71, 67, 35, 44, 74
+<
+
+==============================================================================
+MAPPINGS						*fakearray-mappings*
+
+<Plug>(fakearray)					*<Plug>(fakearray)*
+	Insert mode only.
+	It call fakearray#prompt() via expression-register.
+
+
+==============================================================================
+VARIABLES						*fakearray-variables*
+
+g:fakearray_no_default_key_mappings	*g:fakearray_no_default_key_mappings*
+	(Default: 0)
+
+g:fakearray#separator				*g:fakearray#separator*
+	(Default: ', ')
+
+b:fakearray_separator				*b:fakearray_separator*
+	(Default: undefined)
+
+g:fakearray#prompt_message			*g:fakearray#prompt_message*
+	(Default: 'Fake Array> ') 
+
+g:fakearray#prompt_start			*g:fakearray#prompt_start*
+	(Default: 0)
+
+g:fakearray#prompt_last				*g:fakearray#prompt_last*
+	(Default: 100)
+
+
+==============================================================================
+CHANGELOG						*fakearray-changelog*
+
+1.0.0	2017-05-04
+	- Initial version.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:fdm=marker:
