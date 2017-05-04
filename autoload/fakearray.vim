@@ -4,6 +4,7 @@ set cpo&vim
 let g:fakearray#prompt_start = get(g:, 'fakearray#prompt_start', 0)
 let g:fakearray#prompt_last = get(g:, 'fakearray#prompt_last', 100)
 let g:fakearray#prompt_message = get(g:, 'fakearray#prompt_message', 'Fake Array> ')
+let g:fakearray#separator = get(g:, 'fakearray#separator', ', ')
 
 let s:type_int = type(0)
 let s:type_float = type(0.0)
@@ -20,7 +21,8 @@ function! fakearray#val(first, second) abort "{{{
 endfunction "}}}
 
 function! fakearray#gen(first, second, num) abort "{{{
-  return join(map(range(a:num), 'fakearray#val(a:first, a:second)'), ', ')
+  return join(map(range(a:num), 'fakearray#val(a:first, a:second)'),
+    \ get(b:, 'fakearray_separator', g:fakearray#separator))
 endfunction "}}}
 
 function! fakearray#prompt() abort "{{{
