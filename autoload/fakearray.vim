@@ -19,6 +19,8 @@ endfunction "}}}
 function! fakearray#val(first, second) abort "{{{
   if type(a:first) == s:type_float || type(a:second) == s:type_float
     return fake#float(a:first, a:second)
+  elseif type(a:first) == s:type_string
+    return "'" . fake#gen(a:first) . "'"
   elseif type(a:first) == s:type_int
     if type(a:second) == s:type_int
       return fake#int(a:first, a:second)
