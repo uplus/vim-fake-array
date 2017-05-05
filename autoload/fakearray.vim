@@ -26,19 +26,21 @@ function! fakearray#val(first, second) abort "{{{
 
   if type_first == s:type_int && type_second == s:type_int
     return fake#int(a:first, a:second)
-  elseif type_first == s:type_int && type_second == s:type_string
-    return "'" . fake#chars(fake#int(1, a:first), a:second) . "'"
-  elseif type_first == s:type_string
-    return "'" . fake#gen(a:first) . "'"
   elseif s:is_num(type_first) && s:is_num(type_second)
     return fake#float(a:first, a:second)
+  elseif type_first == s:type_string
+    if type_second == s:type_int
+      return "'" . fake#chars(fake#int(1, a:second), a:first) . "'"
+    elseif type_second == s:type_string && a:second ==# ''
+      return "'" . fake#gen(a:first) . "'"
+    endif
   endif
 
   call s:error(printf('fakearray#val: Invalid argument: %s, %s', string(a:first), string(a:second)))
   throw 'fakearray: Invalid argument'
 endfunction "}}}
 
-function! fakearray#gen(first, second, num) abort "{{{
+function! fakearray#gen(num, first, second) abort "{{{
   try
     return join(map(range(a:num), 'fakearray#val(a:first, a:second)'),
       \ get(b:, 'fakearray_separator', g:fakearray#separator))
@@ -57,9 +59,9 @@ function! fakearray#prompt() abort "{{{
 
   let len = len(args)
   if len == 1
-    return fakearray#gen(g:fakearray#prompt_start, g:fakearray#prompt_last, args[0])
+    return fakearray#gen(args[0], g:fakearray#prompt_start, g:fakearray#prompt_last)
   elseif len == 2
-    call s:error('Enough input: Need 1 or 3')
+    return fakearray#gen(args[0], args[1], '')
   elseif len == 3
     return fakearray#gen(args[0], args[1], args[2])
   endif
