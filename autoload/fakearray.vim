@@ -16,20 +16,22 @@ function! s:error(msg) abort "{{{
   echohl None
 endfunction "}}}
 
+function! s:is_num(type_val) abort "{{{
+  return a:type_val == s:type_int || a:type_val == s:type_float
+endfunction "}}}
+
 function! fakearray#val(first, second) abort "{{{
   let type_first = type(a:first)
   let type_second = type(a:second)
 
-  if type_first == s:type_float || type_second == s:type_float
-    return fake#float(a:first, a:second)
+  if type_first == s:type_int && type_second == s:type_int
+    return fake#int(a:first, a:second)
+  elseif type_first == s:type_int && type_second == s:type_string
+    return "'" . fake#chars(fake#int(1, a:first), a:second) . "'"
   elseif type_first == s:type_string
     return "'" . fake#gen(a:first) . "'"
-  elseif type_first == s:type_int
-    if type_second == s:type_int
-      return fake#int(a:first, a:second)
-    elseif type_second == s:type_string
-      return "'" . fake#chars(fake#int(1, a:first), a:second) . "'"
-    endif
+  elseif s:is_num(type_first) && s:is_num(type_second)
+    return fake#float(a:first, a:second)
   endif
 
   call s:error(printf('fakearray#val: Invalid arguments: %s, %s', a:first, a:second))
