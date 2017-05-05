@@ -17,14 +17,17 @@ function! s:error(msg) abort "{{{
 endfunction "}}}
 
 function! fakearray#val(first, second) abort "{{{
-  if type(a:first) == s:type_float || type(a:second) == s:type_float
+  let type_first = type(a:first)
+  let type_second = type(a:second)
+
+  if type_first == s:type_float || type_second == s:type_float
     return fake#float(a:first, a:second)
-  elseif type(a:first) == s:type_string
+  elseif type_first == s:type_string
     return "'" . fake#gen(a:first) . "'"
-  elseif type(a:first) == s:type_int
-    if type(a:second) == s:type_int
+  elseif type_first == s:type_int
+    if type_second == s:type_int
       return fake#int(a:first, a:second)
-    elseif type(a:second) == s:type_string
+    elseif type_second == s:type_string
       return "'" . fake#chars(fake#int(1, a:first), a:second) . "'"
     endif
   endif
