@@ -1,4 +1,5 @@
 # vim-fakearray
+[![Build Status](https://travis-ci.org/uplus/vim-fakearray.svg?branch=master)](https://travis-ci.org/uplus/vim-fakearray)  
 Vim plugin to easy input fake array.  
 
 

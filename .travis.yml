@@ -1,0 +1,37 @@
+language: generic
+sudo: false
+os:
+  - linux
+
+install:
+  - (git clone --depth 1 --single-branch https://github.com/thinca/vim-themis ~/vim-themis || git -C ~/vim-themis pull)
+  - (git clone --depth 1 --single-branch https://github.com/tkhren/vim-fake ~/vim-fake || git -C ~/vim-fake pull)
+  - pip install vim-vint --upgrade --user
+  - (if ! test -d $HOME/vim-$VIM_VERSION/bin; then
+        git clone https://github.com/vim/vim $HOME/vim &&
+        cd $HOME/vim &&
+        git checkout v$VIM_VERSION &&
+        ./configure --prefix=$HOME/vim-$VIM_VERSION &&
+        make &&
+        make install;
+      fi)
+
+env:
+  - VIM_VERSION=8.0.0000
+
+cache:
+  directories:
+    - $HOME/vim-$VIM_VERSION
+    - ~/vim-themis
+    - ~/vim-fake
+    - ~/.local/bin
+    - ~/.local/lib/
+
+before_script:
+  - vint --version
+  - export PATH=$HOME/vim-$VIM_VERSION/bin:$PATH
+  - vim --version
+
+script:
+  - vint autoload/ plugin/
+  - ~/vim-themis/bin/themis --reporter spec --runtimepath ~/vim-fake
