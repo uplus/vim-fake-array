@@ -34,7 +34,7 @@ function! fakearray#val(first, second) abort "{{{
     return fake#float(a:first, a:second)
   endif
 
-  call s:error(printf('fakearray#val: Invalid arguments: %s, %s', a:first, a:second))
+  call s:error(printf('fakearray#val: Invalid arguments: %s, %s', string(a:first), string(a:second)))
   throw 'fakearray: Invalid arguments'
 endfunction "}}}
 
