@@ -10,16 +10,20 @@ Vim plugin to easy input fake array.
 
 ```vim
 imap <F3> <Plug>(fakearray)
+
+" My mapping is <c-/>a.
+" If you want to use <c-/>, type <c-v><c-/>
+imap <1f>a <Plug>(fakearray)
 ```
 
-[![asciicast](https://asciinema.org/a/119112.png)](https://asciinema.org/a/119112)  
+[![asciicast](https://asciinema.org/a/02c6zs3bpzr4o4lvzfwv7u24m.png)](https://asciinema.org/a/02c6zs3bpzr4o4lvzfwv7u24m)  
 
 
 ## Configure
 
 ```vim
 let g:fakearray#prompt_start = 0
-let g:fakearray#prompt_last = 9999
+let g:fakearray#prompt_last = 100
 let g:fakearray#prompt_message = '> '
 let g:fakearray#separator = ', '
 let g:fakearray_no_default_key_mappings = 1
