@@ -41,7 +41,7 @@ fakearray#val({first}, {second})			*fakearray#val*
 	If `{first}` is `string` and `{second}` is `int`, call |fake#chars|.
 	If `{first}` is `string` and `{second}` is `''`, call |fake#gen|.
 
-fakearray#gen({first}, {second}, {num})			*fakearray#gen*
+fakearray#gen({num}, {first}, {second})			*fakearray#gen*
 	Call |fakearray#val| `{num}` times and join results.
 	Separator is |g:fakearray#separator| or |b:fakearray_separator|.
 >
