@@ -20,11 +20,11 @@ function! s:suite.__int__() abort
   let int = themis#suite('int')
 
   function! int.one() abort
-    call s:assert.match(fakearray#gen(1, 0, 10), '\d\+')
+    call s:assert.match(fakearray#gen(1, 0, 10), '^\d\+$')
   endfunction
 
   function! int.two() abort
-    call s:assert.match(fakearray#gen(2, 0, 10), '\d\+, \d\+')
+    call s:assert.match(fakearray#gen(2, 0, 10), '^\d\+, \d\+$')
   endfunction
 endfunction
 
@@ -32,11 +32,11 @@ function! s:suite.__float__() abort
   let float = themis#suite('float')
 
   function! float.one() abort
-    call s:assert.match(fakearray#gen(1, 0, 1.0), '\d\.\d\+')
+    call s:assert.match(fakearray#gen(1, 0, 1.0), '^\d\.\d\+$')
   endfunction
 
   function! float.two() abort
-    call s:assert.match(fakearray#gen(2, 0, 1.0), '\d\.\d\+, \d\.\d\+')
+    call s:assert.match(fakearray#gen(2, 0, 1.0), '^\d\.\d\+, \d\.\d\+$')
   endfunction
 endfunction
 
@@ -44,11 +44,11 @@ function! s:suite.__str__() abort
   let str = themis#suite('str')
 
   function! str.one() abort
-    call s:assert.match(fakearray#gen(1, '\w', 10), "'\\w\\+'")
+    call s:assert.match(fakearray#gen(1, '\w', 10), "^'\\w\\+'$")
   endfunction
 
   function! str.two() abort
-    call s:assert.match(fakearray#gen(2, '\w', 10), "'\\w\\+', '\\w\\+'")
+    call s:assert.match(fakearray#gen(2, '\w', 10), "^'\\w\\+', '\\w\\+'$")
   endfunction
 endfunction
 
@@ -56,10 +56,10 @@ function! s:suite.__fake_gen__() abort
   let fake_gen = themis#suite('fake_gen')
 
   function! fake_gen.fake_gen_one() abort
-    call s:assert.match(fakearray#gen(1, 'word', ''), "'\\w\\+'")
+    call s:assert.match(fakearray#gen(1, 'word', ''), "^'\\w\\+'$")
   endfunction
 
   function! fake_gen.fake_gen_two() abort
-    call s:assert.match(fakearray#gen(2, 'word', ''), "'\\w\\+', '\\w\\+'")
+    call s:assert.match(fakearray#gen(2, 'word', ''), "^'\\w\\+', '\\w\\+'$")
   endfunction
 endfunction

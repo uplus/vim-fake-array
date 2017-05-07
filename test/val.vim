@@ -41,7 +41,7 @@ function! s:suite.__str__() abort
   endfunction
 endfunction
 
-" Invalid arguments
+" Invalid argument
 function! s:suite.__invalid__() abort
   let invalid = themis#suite('invalid argument')
 
