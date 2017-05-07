@@ -10,10 +10,10 @@ function! s:suite.is_string() abort
 endfunction
 
 function! s:suite.zero() abort
-  call s:assert.equal('', fakearray#gen(0, 0, 1))
-  call s:assert.equal('', fakearray#gen(0, 0, 1.0))
-  call s:assert.equal('', fakearray#gen(0, '\w', 1))
-  call s:assert.equal('', fakearray#gen(0, 'job', ''))
+  call s:assert.equal(fakearray#gen(0, 0, 1), '')
+  call s:assert.equal(fakearray#gen(0, 0, 1.0), '')
+  call s:assert.equal(fakearray#gen(0, '\w', 1), '')
+  call s:assert.equal(fakearray#gen(0, 'job', ''), '')
 endfunction
 
 function! s:suite.__int__() abort
