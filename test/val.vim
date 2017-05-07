@@ -46,18 +46,18 @@ function! s:suite.__invalid__() abort
   let invalid = themis#suite('invalid argument')
 
   function! invalid.str_str__non_empty() abort
-    Throws /fakearray: Invalid argument/ fakearray#val('job', 'abc')
+    Throws /fakearray#val: Invalid argument/ fakearray#val('job', 'abc')
   endfunction
 
   function! invalid.int_str() abort
-    Throws /fakearray: Invalid argument/ fakearray#val(0, 'abc')
+    Throws /fakearray#val: Invalid argument/ fakearray#val(0, 'abc')
   endfunction
 
   function! invalid.float_str() abort
-    Throws /fakearray: Invalid argument/ fakearray#val(0.0, 'abc')
+    Throws /fakearray#val: Invalid argument/ fakearray#val(0.0, 'abc')
   endfunction
 
   function! invalid.str_float() abort
-    Throws /fakearray: Invalid argument/ fakearray#val('abc', 0.0)
+    Throws /fakearray#val: Invalid argument/ fakearray#val('abc', 0.0)
   endfunction
 endfunction

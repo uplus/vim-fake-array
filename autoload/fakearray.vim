@@ -10,12 +10,6 @@ let s:type_int = type(0)
 let s:type_float = type(0.0)
 let s:type_string = type('')
 
-function! s:error(msg) abort "{{{
-  echohl ErrorMsg
-  echomsg '[fakearray] Error:' a:msg
-  echohl None
-endfunction "}}}
-
 function! s:is_num(type_val) abort "{{{
   return a:type_val == s:type_int || a:type_val == s:type_float
 endfunction "}}}
@@ -36,8 +30,7 @@ function! fakearray#val(first, second) abort "{{{
     endif
   endif
 
-  call s:error(printf('fakearray#val: Invalid argument: %s, %s', string(a:first), string(a:second)))
-  throw 'fakearray: Invalid argument'
+  throw printf('fakearray#val: Invalid argument: %s, %s', string(a:first), string(a:second))
 endfunction "}}}
 
 function! fakearray#gen(num, first, second) abort "{{{
@@ -53,8 +46,7 @@ function! fakearray#prompt() abort "{{{
   try
     let args = map(split(input(g:fakearray#prompt_message), ' '), 'eval(v:val)')
   catch /E121:/
-    call s:error('Invalid input: '. v:exception)
-    return ''
+    throw 'fakearray#prompt: Invalid input: ' . v:exception
   endtry
 
   let len = len(args)
