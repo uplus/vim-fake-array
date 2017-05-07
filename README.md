@@ -22,8 +22,8 @@ imap <1f>a <Plug>(fakearray)
 ## Configure
 
 ```vim
-let g:fakearray#prompt_start = 0
-let g:fakearray#prompt_last = 100
+let g:fakearray#prompt_first= 0
+let g:fakearray#prompt_second= 100
 let g:fakearray#prompt_message = '> '
 let g:fakearray#separator = ', '
 let g:fakearray_no_default_key_mappings = 1

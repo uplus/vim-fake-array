@@ -1,8 +1,8 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-let g:fakearray#prompt_start = get(g:, 'fakearray#prompt_start', 0)
-let g:fakearray#prompt_last = get(g:, 'fakearray#prompt_last', 100)
+let g:fakearray#prompt_first = get(g:, 'fakearray#prompt_first', 0)
+let g:fakearray#prompt_second = get(g:, 'fakearray#prompt_second', 100)
 let g:fakearray#prompt_message = get(g:, 'fakearray#prompt_message', 'Fake Array> ')
 let g:fakearray#separator = get(g:, 'fakearray#separator', ', ')
 
@@ -59,7 +59,7 @@ function! fakearray#prompt() abort "{{{
 
   let len = len(args)
   if len == 1
-    return fakearray#gen(args[0], g:fakearray#prompt_start, g:fakearray#prompt_last)
+    return fakearray#gen(args[0], g:fakearray#prompt_first, g:fakearray#prompt_second)
   elseif len == 2
     return fakearray#gen(args[0], args[1], '')
   elseif len == 3

@@ -69,9 +69,8 @@ fakearray#prompt()					*fakearray#prompt*
 	'ee', 'd', 'a', 'cd'
 
 <
-	If input only one number, return numbers.
-	Range of the return numbers is between |g:fakearray#prompt_start| and
-	|g:fakearray#prompt_last|.
+	If input only one number, call |fakearray#gen| with input number,
+	|g:fakearray#prompt_first| and |g:fakearray#prompt_second|.
 >
 	:echo fakearray#prompt()
 	Fake Array> 5
@@ -108,15 +107,19 @@ b:fakearray_separator				*b:fakearray_separator*
 g:fakearray#prompt_message			*g:fakearray#prompt_message*
 	(Default: 'Fake Array> ')
 
-g:fakearray#prompt_start			*g:fakearray#prompt_start*
+g:fakearray#prompt_first			*g:fakearray#prompt_first*
 	(Default: 0)
 
-g:fakearray#prompt_last				*g:fakearray#prompt_last*
+g:fakearray#prompt_second				*g:fakearray#prompt_second*
 	(Default: 100)
 
 
 ==============================================================================
 CHANGELOG						*fakearray-changelog*
+
+1.2.0	2017-05-07
+	- Fix doc.
+	- Change variable name.
 
 1.1.0	2017-05-06
 	- Change argument order.
